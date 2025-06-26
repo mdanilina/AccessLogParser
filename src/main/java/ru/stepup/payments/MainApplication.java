@@ -14,14 +14,8 @@ public class MainApplication {
         //System.out.println("ведите текст и нажмите <Enter>: " + Math.random());
 
         Scanner input = new Scanner(System.in);
-        System.out.println("ведите текст и нажмите <Enter>: ");
+        System.out.println("введите текст и нажмите <Enter>:");
         String text = input.nextLine(); // здесь идет считывание текста
         System.out.println("Длина текста: " + text.length());
     }
-
-    private static class scanner {
-        public scanner(InputStream in) {
-
-        }
     }
-}
