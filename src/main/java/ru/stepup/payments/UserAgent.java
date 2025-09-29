@@ -1,44 +1,48 @@
 package ru.stepup.payments;
 
+import lombok.Data;
+
+@Data
 public class UserAgent {
 
-    final String type_os, bro_name;
+    private final String type_os, bro_name;
 
     public UserAgent(String userAgent) {
-        String[] parts = userAgent.split(";");
+        this.type_os = detectOS(userAgent);
+        this.bro_name = detectBrowser(userAgent);
+    }
 
-        //System.out.println(parts[0]);
-        //System.out.println(parts.length);
-        //System.out.println(parts_new.length);
-        //System.out.println(parts_new[1]);
-        if (parts.length >= 2) {
-            this.type_os = parts[1].substring(0, parts[1].length()-1);
-            this.bro_name = parts[0].substring(1,parts[0].length()-1);
+    private String detectOS(String ua) {
+        String lower = ua.toLowerCase();
+        if (lower.contains("windows")){
+            return "Windows";
         }
-        else {
-            if (parts.length == 1) {
-                this.bro_name = parts[0].replace(" ","");//.substring(1,parts_new.length);
-                this.type_os=" ";
-            }
-            else {
-                this.bro_name = " ";
-                this.type_os=" ";
-            }
+        else if (lower.contains("mac os")|| lower.contains("macintosh")){
+            return "MacOS";
         }
-
-
+        else if (lower.contains("linux")){
+            return "Linux";
+        }
+        return "Other";
     }
 
-    public String getType_os() {
-        return type_os;
-    }
-
-    public String getBro_name() {
-        return bro_name;
-    }
-
-    @Override
-    public String toString() {
-        return "UserAgent " + "{" + this.type_os + " " + this.bro_name + "}";
+    private String detectBrowser(String ua) {
+        String lower = ua.toLowerCase();
+        if (lower.contains("edg")){
+            return "EDGE";
+        }
+        else if (lower.contains("firefox")){
+            return "FIREFOX";
+        }
+        else if (lower.contains("chrome") || lower.contains("chromium")){
+            return "CHROME";
+        }
+        else if (lower.contains("opera") || lower.contains("opr")){
+            return "OPERA";
+        }
+        else if (lower.contains("yandex")){
+            return "YANDEX";
+        }
+        return "Other";
     }
 }
